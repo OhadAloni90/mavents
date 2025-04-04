@@ -23,7 +23,6 @@ export default function GameContainer({ children, width, height, fill = false, s
   return (
     <StyledContainer
       sx={{
-        // If "fill" is true, use calc(100% - 30px). Otherwise, use the width/height props.
         minWidth: width || 400,
         maxHeight: height || 120,
         ...sx,

@@ -4,7 +4,7 @@ import SignInPage from "./shared/pages/SignInPage/SignInPage";
 import GamePage from "./shared/pages/GamePage/GamePage";
 import LeaderboardPage from "./shared/pages/LeaderBoardPage/LeaderboardPage";
 import Header from "./shared/components/Header/Header";
-import { UIProvider } from "./providers/UIContext/UIContext";
+import { UIProvider } from "./providers/GameContext/GameContext";
 import GradientBackground from "./themes/utils/backgrounds";
 import { Box } from "@mui/material";
 export const UserContext = React.createContext<{

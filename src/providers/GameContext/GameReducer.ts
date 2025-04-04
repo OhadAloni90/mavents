@@ -1,6 +1,6 @@
-import { UIAction, UIState } from "../../utils/types/UITypes";
+import { UIAction, GameState } from "../../utils/types/UITypes";
 
-export const initialState: UIState = {
+export const initialState: GameState = {
   userId: null,
   toast: {
     open: false,
@@ -14,8 +14,7 @@ export const initialState: UIState = {
   isLoading: false,
   playerName: ''
 };
-
-export function uiReducer(state: UIState, action: UIAction): UIState {
+export function GameReducer(state: GameState, action: UIAction): GameState {
   switch (action.type) {
     case 'SET_USER':
       return { ...state, userId: action.payload, playerName: action?.payload };
@@ -25,8 +24,6 @@ export function uiReducer(state: UIState, action: UIAction): UIState {
       return { ...state, toast: { open: true, message: action.payload.message, severity: action.payload.severity } };
     case 'HIDE_TOAST':
       return { ...state, toast: { ...state.toast, open: false } };
-    case 'SET_LOADING':
-      return { ...state, loading: { open: true, message: action.payload } };
     case 'HIDE_LOADING':
       return { ...state, loading: { open: false, message: '' } };
     case 'LOADING': 

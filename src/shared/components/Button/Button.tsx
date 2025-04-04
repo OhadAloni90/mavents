@@ -15,7 +15,8 @@ export default function GameButton({
   const endIcon   = iconPosition === 'end'   ? icon : undefined;
   const StyledButton = styled(Button)(({ theme }) => ({
     width: width,
-    boxShadow: 'none'
+    boxShadow: 'none',
+    
   }));
   return (
     <StyledButton

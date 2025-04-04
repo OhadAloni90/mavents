@@ -5,9 +5,9 @@ import { UserContext } from '../../../App';
 import GameButton from '../../components/Button/Button';
 import GameContainer from '../../components/GameContainer/GameContainer';
 import SendIcon from '@mui/icons-material/Send';
-import { useUI } from '../../../providers/UIContext/UIContext';
+import { useUI } from '../../../providers/GameContext/GameContext';
 import ClearIcon from '@mui/icons-material/Clear';
-import { defaultContainerStyles } from '../../../themes/utils/containerSizes';
+import { defaultContainerStyles } from '../../../themes/utils/GlobalContainerStyles';
 
 const BASE_URL = 'https://quicktap-backend-219181450324.us-central1.run.app';
 
@@ -41,7 +41,6 @@ export default function SignInPage() {
       console.error('Failed to get userId:', error);
     } 
   };
-
   return (
     <Container  sx={{
       ...defaultContainerStyles

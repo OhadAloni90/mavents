@@ -1,5 +1,5 @@
 export type ToastSeverity = 'success' | 'error' | 'info' | 'warning';
-export interface UIState {
+export interface GameState {
   userId: string | null;
   toast: {
     open: boolean;
@@ -19,5 +19,4 @@ export type UIAction =
   | { type: 'CLEAR_USER' }
   | { type: 'SHOW_TOAST'; payload: { message: string; severity: ToastSeverity } }
   | { type: 'HIDE_TOAST' } | {type: 'LOADING', payload: boolean}
-  | { type: 'SET_LOADING'; payload: string }
   | { type: 'HIDE_LOADING' };

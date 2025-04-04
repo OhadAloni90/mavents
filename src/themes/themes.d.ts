@@ -53,7 +53,6 @@ declare module '@mui/material/styles' {
       gameCube: string[]
     };
   }
-  // allow configuration using `createTheme`
   interface ThemeOptions {
     customShadows?: {
       alert?: string[];

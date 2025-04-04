@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { GameHeaderProps } from "../../../../utils/interfaces/GameProps";
-import theme from "../../../../themes";
-import { useUI } from "../../../../providers/UIContext/UIContext";
+import { GameHeaderProps } from "../../../../../utils/interfaces/GameProps";
+import theme from "../../../../../themes";
+import { styled } from "@mui/system";
+
 const GameHeader: React.FC<GameHeaderProps> = ({ gameState, playerName, score }) => (
   <Box
     sx={{

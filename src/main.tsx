@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import {  ThemeProvider } from "@mui/material/styles";
 import Header from "./shared/components/Header/Header";
-import { UIProvider } from "./providers/UIContext/UIContext";
+import { UIProvider } from "./providers/GameContext/GameContext";
 import theme from "./themes";
 
 

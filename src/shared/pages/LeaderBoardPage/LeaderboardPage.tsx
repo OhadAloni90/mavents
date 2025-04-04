@@ -10,23 +10,19 @@ import {
   TableRow,
   Paper,
   useTheme,
+  styled,
 } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import theme from "../../../themes";
 import SendIcon from "@mui/icons-material/Send";
 import GameButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
-import { defaultContainerStyles, StyledHighScoreContainer } from "../../../themes/utils/containerSizes";
-import { useUI } from "../../../providers/UIContext/UIContext";
+import { defaultContainerStyles, StyledHighScoreContainer } from "../../../themes/utils/GlobalContainerStyles";
+import { useUI } from "../../../providers/GameContext/GameContext";
 import { GradientLinearProgress } from "../../components/Loader/Loader";
-
-const BASE_URL = "https://quicktap-backend-219181450324.us-central1.run.app";
-
-interface LeaderboardItem {
-  userId: string;
-  username: string;
-  score: number;
-}
+import { StyledLeaderBoardBox } from "./style/StyledLeaderBoardBox";
+import { LeaderboardItem } from "../../../utils/interfaces/GameProps";
+import { BASE_URL } from "../../../utils/vars";
 
 export default function LeaderboardPage() {
   const navigate = useNavigate();
@@ -51,7 +47,7 @@ export default function LeaderboardPage() {
       console.log("b", state?.isLoading);
     }
   };
-  const mapIndexText = (index: number) => {
+  const mapIndexText = (index: number): string => {
     const j = index % 10;
     const k = index % 100;
     if (j === 1 && k !== 11) {
@@ -72,23 +68,11 @@ export default function LeaderboardPage() {
       }}
     >
       <Typography variant="mavensBigTitleBold">HIGHSCORES TABLE</Typography>
-
       <StyledHighScoreContainer sx={{ mb: 6 }}>
         {state?.isLoading ? (
-          <Box
-            sx={{
-              width: "33%",
-              margin: "20px auto",
-              textAlign: "center",
-              height: "100%",
-              display: "flex",
-              alignItems: "cneter",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+          <StyledLeaderBoardBox>
             <GradientLinearProgress variant="indeterminate" />
-          </Box>
+          </StyledLeaderBoardBox>
         ) : (
           <Table
             sx={{

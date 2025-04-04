@@ -3,15 +3,17 @@ import { Box, Typography, Button, Container } from "@mui/material";
 import { UserContext } from "../../../App";
 import { GameState } from "../../../utils/types/gameTypes";
 import { BASE_URL } from "../../../utils/vars";
-import { useUI } from "../../../providers/UIContext/UIContext";
+import { useUI } from "../../../providers/GameContext/GameContext";
 import { UserReactionMessages } from "../../../utils/enums";
 import { GradientLinearProgress } from "../../components/Loader/Loader";
-import { defaultContainerStyles, StyledGameContainer } from "../../../themes/utils/containerSizes";
-import GameHeader from "./components/GameHeader";
+import { defaultContainerStyles, StyledGameContainer } from "../../../themes/utils/GlobalContainerStyles";
+import GameHeader from "./components/GameHeader/GameHeader";
 import theme from "../../../themes";
 import GameButton from "../../components/Button/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/system";
+import { IndicatorBox, LoaderBox, StyledGameBox } from "./style/GameStyledBoxes";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const randomDelay = () => Math.floor(Math.random() * 3000) + 2000;
@@ -25,38 +27,30 @@ export default function GamePage() {
   useEffect(() => {
     showToastRef.current = showToast;
   }, [showToast]);
-
   // Game states
   const [gameState, setGameState] = useState<GameState>("WAITING");
   const [score, setScore] = useState<number>(0);
   const scoreRef = useRef<number>(0);
   const [indicatorSide, setIndicatorSide] = useState<"left" | "right" | null>(null);
-
   const gameStateRef = useRef(gameState);
   useEffect(() => {
     gameStateRef.current = gameState;
   }, [gameState]);
-
   const [restartCount, setRestartCount] = useState(0);
   const gameLoopInstanceIdRef = useRef(0);
-
   useEffect(() => {
     if (!userId) return;
-
     gameLoopInstanceIdRef.current++;
     const currentInstanceId = gameLoopInstanceIdRef.current;
-
     const runGameLoop = async () => {
       while (currentInstanceId === gameLoopInstanceIdRef.current) {
         setGameState("WAITING");
         setIndicatorSide(null);
         await delay(randomDelay());
         if (currentInstanceId !== gameLoopInstanceIdRef.current) break;
-
         const side: "left" | "right" = Math.random() < 0.5 ? "left" : "right";
         setIndicatorSide(side);
         setGameState("SHOWING");
-
         const reactionResult = await waitForKeyPress(side, 1000);
         if (reactionResult === "success") {
           scoreRef.current += 1;
@@ -113,7 +107,6 @@ export default function GamePage() {
       console.error("Failed to save score:", err);
     }
   };
-
   // Restart
   const handleRestart = () => {
     setScore(0);
@@ -131,62 +124,32 @@ export default function GamePage() {
     >
       <StyledGameContainer>
         {/* 1) In-game header */}
-      
         {state.playerName && <GameHeader gameState={gameState} playerName={state.playerName} score={score} />}
         {/* 2) WAITING / SHOWING / ENDED inside the same container */}
         {gameState === "WAITING" && (
-          <Box
-            sx={{
-              width: "33%",
-              margin: "20px auto",
-              textAlign: "center",
-              height: "100%",
-              display: "flex",
-              alignItems: "cneter",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+          <LoaderBox>
             <GradientLinearProgress variant="indeterminate" />
-          </Box>
+          </LoaderBox>
         )}
         {gameState === "SHOWING" && indicatorSide && (
-           <Box
-           sx={{
-             position: "relative",
-             width: "100%",
-             flex: 1,
-             mt: 2,
-             padding: 1,
-           }}
-         >
-           <Box
-             sx={{
-               position: "absolute",
-               top: "50%",
-               transform: "translateY(-50%)",
-               left: indicatorSide === "left" ? "20%" : "auto",
-               right: indicatorSide === "right" ? "20%" : "auto",
-               boxShadow: theme?.customShadows?.gameCube,
-               borderRadius: "16.5px",
-               backgroundColor: theme?.palette?.baseWhite.main,
-               width: "60px",
-               height: "60px",
-               display: "flex",
-               justifyContent: "center",
-               alignItems: "center",
-             }}
-           >
-             <Box
-               sx={{
-                 backgroundColor: theme?.palette?.basePinkSecondary.main,
-                 width: "45px",
-                 height: "45px",
-                 borderRadius: "10.5px",
-               }}
-             ></Box>
-           </Box>
-         </Box>
+          <StyledGameBox>
+            <IndicatorBox
+              sx={{
+                left: indicatorSide === "left" ? "20%" : "auto",
+                right: indicatorSide === "right" ? "20%" : "auto",
+                boxShadow: theme?.customShadows?.gameCube,
+              }}
+            >
+              <Box
+                sx={{
+                  backgroundColor: theme?.palette?.basePinkSecondary.main,
+                  width: "45px",
+                  height: "45px",
+                  borderRadius: "10.5px",
+                }}
+              ></Box>
+            </IndicatorBox>
+          </StyledGameBox>
         )}
         {gameState === "ENDED" && (
           <Box
@@ -199,7 +162,10 @@ export default function GamePage() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="mavensBigTitleBold" sx={{ color: theme?.palette?.infoRed?.main, fontWeight: "bold", mb: 4 }}>
+            <Typography
+              variant="mavensBigTitleBold"
+              sx={{ color: theme?.palette?.infoRed?.main, fontWeight: "bold", mb: 4 }}
+            >
               GAME OVER!
             </Typography>
             <Typography variant="mavensBigTitleBold" sx={{ mb: 4 }}>
@@ -211,7 +177,7 @@ export default function GamePage() {
               </Button>
               <GameButton
                 sx={{ m: 1 }}
-                width={ 163}
+                width={163}
                 text="Restart Game"
                 icon={<SendIcon />}
                 iconPosition="start"

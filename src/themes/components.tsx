@@ -11,7 +11,7 @@ export default function componentsOverride(theme: Theme) {
   // --- Button Overrides ---
   const buttonRootStyles: CSSObject = {
     textTransform: "none",
-    borderRadius: shape.borderRadius, // e.g. 12
+    borderRadius: shape.borderRadius,
   };
 
   const containedPrimaryStyles: CSSObject = {

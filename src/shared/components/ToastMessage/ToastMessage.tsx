@@ -1,7 +1,5 @@
-// ToastMessage.tsx
 import React from 'react';
-import { Alert, Snackbar } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Alert, Box, Portal } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 type ToastMessageProps = {
@@ -9,28 +7,36 @@ type ToastMessageProps = {
   message: string;
   severity?: 'success' | 'error' | 'info' | 'warning';
   onClose?: () => void;
+  container?: Element | null;
 };
-
-
 export default function ToastMessage({
   open,
   message,
   severity = 'success',
   onClose,
+  container,
 }: ToastMessageProps) {
+  if (!open) return null;
   return (
-    <Snackbar
-    open={open}
-    onClose={onClose}
-    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-    sx={{
-      position: 'absolute',
-      // Optionally adjust the bottom offset or horizontal offset
-      bottom: 30,
-    }}     >
-      <Alert icon={severity === 'success' ? <CheckCircleIcon/> : <CancelIcon/> }  severity={severity} onClose={onClose}>
-        {message}
-      </Alert>
-    </Snackbar>
+    <Portal container={container}>
+      <Box
+        sx={{
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 1300, // make sure it appears above other content
+          bottom:22,
+        }}
+        mb={3}
+      >
+        <Alert
+          icon={severity === 'success' ? <CheckCircleIcon /> : <CancelIcon />}
+          severity={severity}
+          onClose={onClose}
+        >
+          {message}
+        </Alert>
+      </Box>
+    </Portal>
   );
 }

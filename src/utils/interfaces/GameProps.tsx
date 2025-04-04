@@ -5,3 +5,8 @@ export interface GameHeaderProps {
   playerName?: string;
   score?: number;
 }
+export interface LeaderboardItem {
+  userId: string;
+  username: string;
+  score: number;
+}
