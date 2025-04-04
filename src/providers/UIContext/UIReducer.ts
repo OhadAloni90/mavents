@@ -11,6 +11,7 @@ export const initialState: UIState = {
     open: false,
     message: '',
   },
+  isLoading: false,
   playerName: ''
 };
 
@@ -24,10 +25,12 @@ export function uiReducer(state: UIState, action: UIAction): UIState {
       return { ...state, toast: { open: true, message: action.payload.message, severity: action.payload.severity } };
     case 'HIDE_TOAST':
       return { ...state, toast: { ...state.toast, open: false } };
-    case 'SHOW_LOADING':
+    case 'SET_LOADING':
       return { ...state, loading: { open: true, message: action.payload } };
     case 'HIDE_LOADING':
       return { ...state, loading: { open: false, message: '' } };
+    case 'LOADING': 
+      return {...state, isLoading: action?.payload }
     default:
       return state;
   }

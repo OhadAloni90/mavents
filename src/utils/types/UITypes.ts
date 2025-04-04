@@ -10,6 +10,7 @@ export interface UIState {
     open: boolean;
     message: string;
   };
+  isLoading: boolean;
   playerName: string | null;
 }
 
@@ -17,6 +18,6 @@ export type UIAction =
   | { type: 'SET_USER'; payload: string }
   | { type: 'CLEAR_USER' }
   | { type: 'SHOW_TOAST'; payload: { message: string; severity: ToastSeverity } }
-  | { type: 'HIDE_TOAST' }
-  | { type: 'SHOW_LOADING'; payload: string }
+  | { type: 'HIDE_TOAST' } | {type: 'LOADING', payload: boolean}
+  | { type: 'SET_LOADING'; payload: string }
   | { type: 'HIDE_LOADING' };

@@ -51,7 +51,7 @@ export default function SignInPage() {
         Welcome to mavens Game
       </Typography>
       <GameContainer width={430} height={120} >
-        <Typography variant="body2" gutterBottom  sx={{ textAlign: 'left', marginBottom: '25px' }}>
+        <Typography variant="body2" gutterBottom  sx={{ textAlign: 'left'}} mb={2}>
           Enter player name
         </Typography>
         {/* Flex container for the input and button */}

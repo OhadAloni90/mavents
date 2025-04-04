@@ -1,13 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Table, TableBody, TableCell, TableHead, TableRow, Paper, useTheme } from '@mui/material';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import theme from '../../../themes';
-import SendIcon from '@mui/icons-material/Send';
-import GameButton from '../../components/Button/Button';
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Paper,
+  useTheme,
+} from "@mui/material";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import theme from "../../../themes";
+import SendIcon from "@mui/icons-material/Send";
+import GameButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { defaultContainerStyles, StyledHighScoreContainer } from "../../../themes/utils/containerSizes";
+import { useUI } from "../../../providers/UIContext/UIContext";
+import { GradientLinearProgress } from "../../components/Loader/Loader";
 
-
-const BASE_URL = 'https://quicktap-backend-219181450324.us-central1.run.app';
+const BASE_URL = "https://quicktap-backend-219181450324.us-central1.run.app";
 
 interface LeaderboardItem {
   userId: string;
@@ -16,13 +29,15 @@ interface LeaderboardItem {
 }
 
 export default function LeaderboardPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [leaderboard, setLeaderboard] = useState<LeaderboardItem[]>([]);
   useEffect(() => {
     fetchLeaderboard();
   }, []);
-
+  const { state, onSetLoading } = useUI();
   const fetchLeaderboard = async () => {
+    onSetLoading(true);
+    console.log("a", state?.isLoading);
     try {
       const res = await fetch(`${BASE_URL}/api/leaderboard`);
       const data = await res.json();
@@ -30,44 +45,124 @@ export default function LeaderboardPage() {
       const sorted = data.leaderboards.sort((a: LeaderboardItem, b: LeaderboardItem) => b.score - a.score);
       setLeaderboard(sorted);
     } catch (err) {
-      console.error('Failed to fetch leaderboard:', err);
+      console.error("Failed to fetch leaderboard:", err);
+    } finally {
+      onSetLoading(false);
+      console.log("b", state?.isLoading);
     }
   };
-
+  const mapIndexText = (index: number) => {
+    const j = index % 10;
+    const k = index % 100;
+    if (j === 1 && k !== 11) {
+      return index + "st";
+    }
+    if (j === 2 && k !== 12) {
+      return index + "nd";
+    }
+    if (j === 3 && k !== 13) {
+      return index + "rd";
+    }
+    return index + "th";
+  };
   return (
-    <Container sx={{ textAlign: 'center', mt: 5 }}>
-      <Typography variant="h4" gutterBottom>
-      HIGHSCORES TABLE
-      </Typography>
-      <Box mt={4}>
-        <Paper>
-          <Table>
+    <Container
+      sx={{
+        ...defaultContainerStyles,
+      }}
+    >
+      <Typography variant="mavensBigTitleBold">HIGHSCORES TABLE</Typography>
+
+      <StyledHighScoreContainer sx={{ mb: 6 }}>
+        {state?.isLoading ? (
+          <Box
+            sx={{
+              width: "33%",
+              margin: "20px auto",
+              textAlign: "center",
+              height: "100%",
+              display: "flex",
+              alignItems: "cneter",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <GradientLinearProgress variant="indeterminate" />
+          </Box>
+        ) : (
+          <Table
+            sx={{
+              tableLayout: "fixed", // fixes the column widths
+              width: "100%",
+              "& th, & td": {
+                border: `1px solid ${theme?.palette?.leaderboardInnerTableColor?.main}`,
+              },
+              // Then specifically override the header row's border color
+              "& thead tr th": {
+                borderColor: theme?.palette?.basePinkSecondary.main,
+              },
+            }}
+          >
             <TableHead>
-              <TableRow sx={{backgroundColor: theme?.palette?.brandPink02.main}}>
-                <TableCell>POS</TableCell>
-                <TableCell>Player name</TableCell>
-                <TableCell>Score</TableCell>
+              <TableRow sx={{ backgroundColor: theme?.palette?.basePink02.main }}>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography variant="mavenLeaderboardTitleText">POS</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {" "}
+                  <Typography variant="mavenLeaderboardTitleText">Player name</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {" "}
+                  <Typography variant="mavenLeaderboardTitleText">Score</Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody >
+            <TableBody>
               {leaderboard?.map((item, index) => (
-                <TableRow key={item.userId + index}   >
-                  <TableCell sx={{color: index === 0 ? theme.palette.brandGreen.main : theme.palette.primary.main}}>{index === 0 && <EmojiEventsIcon></EmojiEventsIcon>}{index + 1}</TableCell>
-                  <TableCell sx={{color: index === 0 ? theme.palette.brandGreen.main : theme.palette.primary.main}} >{item.username}</TableCell>
-                  <TableCell sx={{color: index === 0 ? theme.palette.brandGreen.main : theme.palette.primary.main}}>{item.score}</TableCell>
+                <TableRow key={item.userId + index}>
+                  <TableCell
+                    sx={{
+                      color: index === 0 ? theme.palette.infoGreen.main : theme.palette.primary.main,
+                      textAlign: "center",
+                    }}
+                  >
+                    {index === 0 && <EmojiEventsIcon></EmojiEventsIcon>}
+
+                    <Typography variant="mavenLeaderboardText"> {mapIndexText(index + 1)}</Typography>
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: index === 0 ? theme.palette.infoGreen.main : theme.palette.primary.main,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography variant="mavenLeaderboardText">{item.username}</Typography>
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: index === 0 ? theme.palette.infoGreen.main : theme.palette.primary.main,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography variant="mavenLeaderboardText">{item.score}</Typography>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </Paper>
-      </Box>
-      <GameButton
-            text="Restart game"
-            icon={<SendIcon/>}
-            iconPosition="start"
-            fullWidth={true}
-            onClick={() =>  {navigate('/game')}}
-          />
+        )}
+      </StyledHighScoreContainer>
+   { !state?.isLoading &&   <GameButton
+        text="Restart game"
+        icon={<SendIcon />}
+        iconPosition="start"
+        fullWidth={true}
+        width={163}
+        onClick={() => {
+          navigate("/game");
+        }}
+      />}
     </Container>
   );
 }

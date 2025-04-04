@@ -1,34 +1,35 @@
 import { PaletteOptions } from '@mui/material/styles';
 const palette: PaletteOptions = {
-  //  MUI keys for brand color, etc.
   primary: {
     main: '#212721', // Colors/Base/Primary
     contrastText: '#FFFFFF', // white text on dark background
   },
-  brandGray: {
+  baseGray: {
     main: '#969B94', // Colors/Base/Gray
   },
-  brandGray2: {
+  baseGray2: {
     main: '#BCB8B8', // Colors/Base/Gray 2
   },
-  brandGray3: {
+  baseGray3: {
     main: '#484D48', // Colors/Base/Gray 2
   },
-  brandWhite: {
+  baseWhite: {
     main: '#FFFFFF', // Colors/Base/White
   },
-  brandPinkSecondary: {
-    main: '#C35831', // Colors/Base/Pink Secondary
+  basePinkSecondary: {
+    main: '#EA3784', // Colors/Base/Pink Secondary
   },
-  brandPink02: {
+  basePink02: {
     main: '#FFDAEA', // Colors/Base/Pink 02
   },
-  brandGreen: {
+  infoGreen: {
     main: '#30A66D', // Colors/Info/Green
   },
-  brandRed: {
+  infoRed: {
     main: '#F04747', // Colors/Info/Red
   },
+  leaderboardInnerTableColor: {
+    main: '#D8D8D8'
+  }
 };
-
 export default palette;

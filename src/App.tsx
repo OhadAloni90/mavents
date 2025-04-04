@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import SignInPage from "./shared/pages/SignInPage/SignInPage";
 import GamePage from "./shared/pages/GamePage/GamePage";
 import LeaderboardPage from "./shared/pages/LeaderBoardPage/LeaderboardPage";
@@ -17,34 +17,44 @@ export const UserContext = React.createContext<{
 
 export default function App() {
   const [userId, setUserId] = React.useState("");
-
+  const Layout = () => {
+    return (
+      <Box sx={{ width: "100vw", height: "100vh", position: "relative" }}>
+      <Header
+        text="mavens Game"
+      />
+      <Box
+        sx={{
+          marginTop: "40px",
+          height: "calc(100vh - 40px)",
+        }}
+      >
+        <Outlet />
+      </Box>
+    </Box>
+    );
+  };
   return (
     <UserContext.Provider value={{ userId, setUserId }}>
       <UIProvider>
         <GradientBackground
           sx={{
-            minHeight: "100vh",
+            width: "100vw",
+            height: "100vh",          // Fill the entire viewport
             display: "flex",
-            flexDirection: "column",
-          }}
+            flexDirection: "column",  // So children can be stacked vertically
+            margin: 0,
+            padding: 0,
+                  }}
         >
-          {/*  fixed-height header */}
-          <Header text="mavens Game" />
-          {/*  main content  below the header */}
-          <Box
-            sx={{
-              flex: 1,
-              marginTop: "40px", // exactly the header’s height
-              height: "calc(100vh - 40px)", // fill the rest of the screen,
-              
-            }}
-          >
-            <Routes>
-              <Route path="/" element={<SignInPage />} />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+            <Route index  element={<SignInPage />} />
+              <Route path="/sign-in" element={<SignInPage />} />
               <Route path="/game" element={<GamePage />} />
               <Route path="/leaderboard" element={<LeaderboardPage />} />
-            </Routes>
-          </Box>
+            </Route>
+          </Routes>
         </GradientBackground>
       </UIProvider>
     </UserContext.Provider>

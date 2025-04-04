@@ -11,16 +11,17 @@ const GameHeader: React.FC<GameHeaderProps> = ({ gameState, playerName, score })
       alignItems: "center",
       mb: 2,
       borderBottom: 1,
-      borderColor: theme.palette.brandGray.main,
+      borderColor: theme.palette.baseGray.main,
+      boxShadow: theme?.customShadows?.gameHeader,
       px: 2,
       py: 1,
     }}
   >
-    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+    <Typography variant="mavensSubTitle" sx={{ fontWeight: 600 }}>
       [{playerName}]
     </Typography>
     {gameState !== "ENDED" && (
-      <Typography variant="h6" sx={{ color: theme.palette.brandPink02.main, fontWeight: 600 }}>
+      <Typography variant="mavensSubTitle" sx={{ color: theme.palette.basePinkSecondary.main, fontWeight: 600 }}>
         [Score {score}]
       </Typography>
     )}

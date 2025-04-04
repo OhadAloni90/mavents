@@ -12,7 +12,7 @@ type GameContainerProps = {
 } & BoxProps;
 
 const StyledContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.brandWhite?.main ?? "#FFFFFF",
+  backgroundColor: theme.palette.baseWhite?.main ?? "#FFFFFF",
   borderRadius: theme.shape.borderRadius,
   boxShadow: dialogsShadow[1],
   padding: "25px 20px 20px 20px",
@@ -25,7 +25,7 @@ export default function GameContainer({ children, width, height, fill = false, s
       sx={{
         // If "fill" is true, use calc(100% - 30px). Otherwise, use the width/height props.
         minWidth: width || 400,
-        minHeight: height || 120,
+        maxHeight: height || 120,
         ...sx,
       }}
       {...rest}

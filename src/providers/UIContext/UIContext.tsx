@@ -1,60 +1,61 @@
-// UIContext.tsx
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
-import { Backdrop, CircularProgress, Typography } from '@mui/material';
+import React, { createContext, useContext, useReducer, ReactNode, useRef } from 'react';
+import { Box } from '@mui/material';
 import { initialState, uiReducer } from './UIReducer';
 import { UIAction, UIState, ToastSeverity } from '../../utils/types/UITypes';
 import ToastMessage from '../../shared/components/ToastMessage/ToastMessage';
+
 type UIContextProps = {
   state: UIState;
   dispatch: React.Dispatch<UIAction>;
   showToast: (message: string, severity?: ToastSeverity) => void;
   showLoading: (message?: string) => void;
-  setUser: (user: string) => void;
   hideLoading: () => void;
+  onSetLoading: (loading: boolean) => void;
+  setUser: (user: string) => void;
 };
 
 const UIContext = createContext<UIContextProps | undefined>(undefined);
 
 export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(uiReducer, initialState);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const showToast = (message: string, severity: ToastSeverity = 'success') => {
     dispatch({ type: 'SHOW_TOAST', payload: { message, severity } });
-    setTimeout(() => dispatch({ type: 'HIDE_TOAST' }), 2000); // auto-dismiss toast after 2s
+    setTimeout(() => dispatch({ type: 'HIDE_TOAST' }), 2000);
   };
 
   const showLoading = (message: string = 'Loading...') => {
-    dispatch({ type: 'SHOW_LOADING', payload: message });
+    dispatch({ type: 'SET_LOADING', payload: message });
   };
 
   const hideLoading = () => {
     dispatch({ type: 'HIDE_LOADING' });
   };
+
+  const onSetLoading = (loading: boolean) => {
+    dispatch({ type: 'LOADING', payload: loading });
+  };
+
   const setUser = (user: string) => {
-    dispatch({ type: 'SET_USER', payload: user})
-  }
+    dispatch({ type: 'SET_USER', payload: user });
+  };
+
   return (
-    <UIContext.Provider value={{ state, dispatch, showToast, showLoading, hideLoading, setUser }}>
-      {children}
-      {/* Global Toast using ToastMessage Component */}
-      <ToastMessage
-        open={state.toast.open}
-        message={state.toast.message}
-        severity={state.toast.severity}
-        onClose={() => dispatch({ type: 'HIDE_TOAST' })}
-      />
-      {/* Global Loading Overlay */}
-      <Backdrop
-        open={state.loading.open}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, color: '#fff', flexDirection: 'row' }}
-      >
-        <CircularProgress color="inherit" />
-        {state.loading.message && (
-          <Typography variant="h6" sx={{ ml: 2 }}>
-            {state.loading.message}
-          </Typography>
-        )}
-      </Backdrop>
+    <UIContext.Provider
+      value={{ state, dispatch, showToast, showLoading, hideLoading, onSetLoading, setUser }}
+    >
+      {/* Wrap content in a relative container */}
+      <Box ref={containerRef} sx={{ position: 'relative', minHeight: '100vh' }}>
+        {children}
+        {/* Pass the container ref to the ToastMessage */}
+        <ToastMessage
+          open={state.toast.open}
+          message={state.toast.message}
+          severity={state.toast.severity}
+          onClose={() => dispatch({ type: 'HIDE_TOAST' })}
+        />
+      </Box>
     </UIContext.Provider>
   );
 };

@@ -20,10 +20,14 @@ export default function ToastMessage({
 }: ToastMessageProps) {
   return (
     <Snackbar
-      open={open}
-      onClose={onClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-    >
+    open={open}
+    onClose={onClose}
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    sx={{
+      position: 'absolute',
+      // Optionally adjust the bottom offset or horizontal offset
+      bottom: 30,
+    }}     >
       <Alert icon={severity === 'success' ? <CheckCircleIcon/> : <CancelIcon/> }  severity={severity} onClose={onClose}>
         {message}
       </Alert>
