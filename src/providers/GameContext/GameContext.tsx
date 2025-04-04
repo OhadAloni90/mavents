@@ -18,8 +18,11 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const showToast = (message: string, severity: ToastSeverity = "success") => {
     dispatch({ type: "SHOW_TOAST", payload: { message, severity } });
-    setTimeout(() => dispatch({ type: "HIDE_TOAST" }), 2000);
+    if (severity !== "success") {
+      setTimeout(() => dispatch({ type: "HIDE_TOAST" }), 2000);
+    }
   };
+  
 
   const onSetLoading = (loading: boolean) => {
     dispatch({ type: "LOADING", payload: loading });

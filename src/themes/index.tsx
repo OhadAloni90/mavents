@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import palette from './palette';
 import typography from './typography';
 import componentsOverride from './components';
-import { customAlertShadows, dialogsShadow, gameHeaderAndCubeShadow, headerShadow, loginComponenShadow } from './utils/shadows';
+import { customAlertShadows, dialogsShadow, gameBoxShadow, gameHeaderAndCubeShadow, headerShadow, loaderShadow, loginComponenShadow, outlinebuttonShadow } from './utils/shadows';
 
 const theme = createTheme({
   palette,
@@ -17,7 +17,10 @@ const theme = createTheme({
     dialogs: dialogsShadow,
     gameHeader: gameHeaderAndCubeShadow,
     gameCube: gameHeaderAndCubeShadow,
-    loginComponent: loginComponenShadow
+    loginComponent: loginComponenShadow,
+    gameBoxShadow: gameBoxShadow,
+    outlinebuttonShadow: outlinebuttonShadow,
+    loaderShadow: loaderShadow
   },
 });
 

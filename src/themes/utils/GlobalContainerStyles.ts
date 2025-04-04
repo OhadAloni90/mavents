@@ -44,7 +44,7 @@ export const StyledGameContainer = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   margin: "2rem auto",          // center horizontally + top/bottom margin
   borderRadius: "10px",
-  boxShadow: theme?.customShadows?.dialogs,
+  boxShadow: theme?.customShadows?.gameBoxShadow,
   backgroundColor: theme.palette.baseWhite.main,
   border: `1px solid ${theme.palette.baseGray.main}`,
 }));

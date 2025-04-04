@@ -30,7 +30,7 @@ declare module '@mui/material/styles' {
     basePink02: Palette['primary'];
     infoGreen: Palette['primary'];
     infoRed: Palette['primary'];
-    leaderboardInnerTableColor: Palette['primary'];
+    baseGray4: Palette['primary'];
   }
   interface PaletteOptions {
     baseGray?: PaletteOptions['primary'];
@@ -41,7 +41,7 @@ declare module '@mui/material/styles' {
     basePink02?: PaletteOptions['primary'];
     infoGreen?: PaletteOptions['primary'];
     infoRed?: PaletteOptions['primary'];
-    leaderboardInnerTableColor?: PaletteOptions['primary'];
+    baseGray4?: PaletteOptions['primary'];
 
   }
   interface Theme {
@@ -51,7 +51,11 @@ declare module '@mui/material/styles' {
       loginComponent: string[];
       dialogs: string[];
       gameHeader: string[],
-      gameCube: string[]
+      gameCube: string[],
+      gameBoxShadow: string[],
+      outlinebuttonShadow: string[],
+      buttonShadow: string[],
+      loaderShadow: string[]
     };
   }
   interface ThemeOptions {
@@ -62,6 +66,10 @@ declare module '@mui/material/styles' {
       gameHeader?: string[];
       gameCube?: string[];
       loginComponent?: string[];
+      gameBoxShadow?: string[];
+      outlinebuttonShadow?: string[],
+      buttonShadow?: string[],
+      loaderShadow?: string[]
     },
   }
 }

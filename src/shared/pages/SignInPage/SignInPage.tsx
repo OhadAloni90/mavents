@@ -83,7 +83,6 @@ export default function SignInPage() {
           />
           <GameButton
             text="Start game"
-            icon={<SendIcon />}
             iconPosition="start"
             fullWidth={true}
             onClick={handleStart}

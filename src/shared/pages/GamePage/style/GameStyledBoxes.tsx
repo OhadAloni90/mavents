@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 
 export const LoaderBox = styled(Box)(({ theme }) => ({
-    width: "33%",
+    width: '555px',
     margin: "20px auto",
     textAlign: "center",
     height: "100%",

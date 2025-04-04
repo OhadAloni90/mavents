@@ -13,6 +13,9 @@ const palette: PaletteOptions = {
   baseGray3: {
     main: '#484D48', // Colors/Base/Gray 2
   },
+  baseGray4: {
+    main: '#D8D8D8'
+  },
   baseWhite: {
     main: '#FFFFFF', // Colors/Base/White
   },
@@ -28,8 +31,6 @@ const palette: PaletteOptions = {
   infoRed: {
     main: '#F04747', // Colors/Info/Red
   },
-  leaderboardInnerTableColor: {
-    main: '#D8D8D8'
-  }
+
 };
 export default palette;

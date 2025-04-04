@@ -6,13 +6,25 @@ import CancelIcon from "@mui/icons-material/Cancel";
 export default function componentsOverride(theme: Theme) {
   const { palette, shape } = theme;
   // !--- Button Overrides ---!
+    // --- Outlined Button Overrides ---
+    const outlinedButtonStyles: CSSObject = {
+      borderColor: palette.baseGray4.main,
+      backgroundColor: palette.baseWhite.main,
+      borderWidth: "1px",
+      borderStyle: "solid",
+      boxShadow: theme?.customShadows?.outlinebuttonShadow,
+      borderRadius: shape.borderRadius,
+      "&:hover": {
+        borderColor: palette.baseGray.main,
+      },
+    };
   const buttonRootStyles: CSSObject = {
     textTransform: "none",
     borderRadius: shape.borderRadius,
   };
   const containedPrimaryStyles: CSSObject = {
     backgroundColor: palette.primary.main,
-    color: palette.primary.contrastText,
+    color: palette.baseWhite?.main,
     "&:hover": {
       backgroundColor: palette.baseGray3.main,
     },
@@ -20,14 +32,7 @@ export default function componentsOverride(theme: Theme) {
     width: "144px",
     height: "36px",
     padding: "4px 12px",
-  };
-  const containedSecondaryStyles: CSSObject = {
-    backgroundColor: palette.baseGray.main,
-    color: palette.secondary.contrastText,
-    "&:hover": {
-      backgroundColor: palette.secondary.dark,
-    },
-    borderRadius: shape.borderRadius,
+    boxShadow: theme?.customShadows?.buttonShadow
   };
   // !--- Outlined Input Overrides ---!
   const outlinedInputRootStyles: CSSObject = {
@@ -90,7 +95,7 @@ export default function componentsOverride(theme: Theme) {
       styleOverrides: {
         root: buttonRootStyles,
         containedPrimary: containedPrimaryStyles,
-        containedSecondary: containedSecondaryStyles,
+        outlined: outlinedButtonStyles, 
       },
     },
     // Inputs

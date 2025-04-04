@@ -20,13 +20,32 @@ const randomDelay = () => Math.floor(Math.random() * 3000) + 2000;
 
 export default function GamePage() {
   const { userId } = useContext(UserContext);
-  const { showToast, state } = useUI();
+  const { showToast, state, dispatch } = useUI();
   const navigate = useNavigate();
   // Keep a stable reference to showToast
   const showToastRef = useRef(showToast);
   useEffect(() => {
     showToastRef.current = showToast;
   }, [showToast]);
+  // Inside your GamePage component
+  const tooSoonToastShownRef = useRef(false);
+  // Global key listener for "waiting" mode:
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only trigger if game state is WAITING
+      if (gameStateRef.current === "WAITING" && !tooSoonToastShownRef.current) {
+        const key = e.key.toLowerCase();
+        if (key === "w" || key === "d") {
+          tooSoonToastShownRef.current = true;
+          showToastRef.current(UserReactionMessages["TooSoon"], "error");
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   // Game states
   const [gameState, setGameState] = useState<GameState>("WAITING");
   const [score, setScore] = useState<number>(0);
@@ -51,6 +70,7 @@ export default function GamePage() {
         const side: "left" | "right" = Math.random() < 0.5 ? "left" : "right";
         setIndicatorSide(side);
         setGameState("SHOWING");
+        dispatch({ type: "HIDE_TOAST" });
         const reactionResult = await waitForKeyPress(side, 1000);
         if (reactionResult === "success") {
           scoreRef.current += 1;
@@ -64,13 +84,11 @@ export default function GamePage() {
         }
       }
     };
-
     runGameLoop();
     return () => {
       gameLoopInstanceIdRef.current++;
     };
   }, [userId, restartCount]);
-
   // Wait for correct key press
   const waitForKeyPress = (
     expected: "left" | "right",
@@ -173,7 +191,7 @@ export default function GamePage() {
             </Typography>
             <Box>
               <Button variant="outlined" onClick={() => navigate("/leaderboard")}>
-                Highscore
+                <Typography variant="mavenMediumText">Highscore</Typography>
               </Button>
               <GameButton
                 sx={{ m: 1 }}
