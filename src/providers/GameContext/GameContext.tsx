@@ -37,7 +37,7 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           message={state.toast.message}
           severity={state.toast.severity}
           onClose={() => dispatch({ type: "HIDE_TOAST" })}
-          container={containerRef.current} // pass the ref’s current element
+          container={containerRef.current} // pass the ref’s current elements..
         />
       </Box>
     </GameContext.Provider>

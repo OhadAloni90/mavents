@@ -1,19 +1,15 @@
 // theme/components.ts
 import { Theme } from "@mui/material/styles";
-import { CSSObject, fontWeight, minWidth, width } from "@mui/system";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { borderColor, CSSObject } from "@mui/system";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { customAlertShadows } from "./utils/shadows";
 
 export default function componentsOverride(theme: Theme) {
   const { palette, shape } = theme;
-
-  // --- Button Overrides ---
+  // !--- Button Overrides ---!
   const buttonRootStyles: CSSObject = {
     textTransform: "none",
     borderRadius: shape.borderRadius,
   };
-
   const containedPrimaryStyles: CSSObject = {
     backgroundColor: palette.primary.main,
     color: palette.primary.contrastText,
@@ -25,7 +21,6 @@ export default function componentsOverride(theme: Theme) {
     height: "36px",
     padding: "4px 12px",
   };
-
   const containedSecondaryStyles: CSSObject = {
     backgroundColor: palette.baseGray.main,
     color: palette.secondary.contrastText,
@@ -34,8 +29,7 @@ export default function componentsOverride(theme: Theme) {
     },
     borderRadius: shape.borderRadius,
   };
-
-  // --- Outlined Input Overrides ---
+  // !--- Outlined Input Overrides ---!
   const outlinedInputRootStyles: CSSObject = {
     width: "280px",
     maxHeight: 36,
@@ -50,11 +44,10 @@ export default function componentsOverride(theme: Theme) {
       borderColor: palette.primary.main,
     },
     "&.Mui-error .MuiOutlinedInput-notchedOutline": {
-      borderColor: palette.error.main,
+      borderColor: palette?.infoRed?.main,
     },
   };
-
-  // --- Filled Input Overrides  ---
+  // !--- Filled Input Overrides  ---!
   const filledInputRootStyles: CSSObject = {
     backgroundColor: "#f5f5f5",
     "&:hover": {
@@ -67,7 +60,7 @@ export default function componentsOverride(theme: Theme) {
       backgroundColor: "#ffe5e5",
     },
   };
-  // --- Form Label Overrides ---
+  // !--- Form Label Overrides ---!
   const formLabelStyles: CSSObject = {
     width: "auto",
     color: "#999",
@@ -75,10 +68,10 @@ export default function componentsOverride(theme: Theme) {
       color: palette.primary.main,
     },
     "&.Mui-error": {
-      color: palette.error.main,
+      color: palette.infoRed.main,
     },
   };
-  // --- Alert (for Toasts) Overrides ---
+  // ---!!! Alert (for Toasts) Overrides !!!----
   const alertRootStyles: CSSObject = {
     //  alert is between 500px and 800px wide
     minWidth: 500,
@@ -123,6 +116,7 @@ export default function componentsOverride(theme: Theme) {
       styleOverrides: {
         minWidth: 280,
         root: filledInputRootStyles,
+        
       },
     },
     MuiFormLabel: {
@@ -131,14 +125,18 @@ export default function componentsOverride(theme: Theme) {
         root: formLabelStyles,
       },
     },
-    // Toasts (Alerts & Snackbars)
-    MuiAlert: {
-      defaultProps: {
-        iconMapping: {
-          success: <CancelIcon />,
-          error: <CancelIcon />,
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          // Affects all icons inside all IconButtons!
+          "& .MuiSvgIcon-root": {
+            color: theme?.palette?.baseGray2?.main,
+          },
         },
       },
+    },
+    // Toasts (Alerts & Snackbars)
+    MuiAlert: {
       styleOverrides: {
         root: alertRootStyles,
         //  success alerts in standard variant
@@ -148,12 +146,12 @@ export default function componentsOverride(theme: Theme) {
           "& .MuiAlert-icon": {
             color: palette.infoGreen.main, // success icon color
           },
-          // Override the close "X" (action area) so it’s NOT green
+          // Overrides the close "X" (action area) so it’s NOT green
           "& .MuiAlert-action .MuiIconButton-root": {
-            color: palette.baseGray2.main,
+            color: '#7F817D',
           },
         },
-        // 3) For error alerts in standard variant
+        //  For error alerts in standard variant
         standardError: {
           backgroundColor: theme.palette.common.white,
           color: palette.infoRed.main,
@@ -167,5 +165,6 @@ export default function componentsOverride(theme: Theme) {
         },
       },
     },
+
   };
 }

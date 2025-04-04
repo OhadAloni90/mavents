@@ -3,6 +3,7 @@ import React from "react";
 import { Box, BoxProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { dialogsShadow } from "../../../themes/utils/shadows";
+import theme from "../../../themes";
 
 type GameContainerProps = {
   children: React.ReactNode;

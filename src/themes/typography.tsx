@@ -3,15 +3,15 @@ const typography: TypographyVariantsOptions = {
   fontFamily: "'Montserrat', sans-serif",
   h1: {
     fontSize: 36,
-    fontWeight: 600, // semi-bold
+    fontWeight: 600, 
   },
   subtitle1: {
     fontSize: 16,
-    fontWeight: 600, // semi-bold
+    fontWeight: 600, 
   },
   body1: {
     fontSize: 22,
-    fontWeight: 400, // normal
+    fontWeight: 400, 
   }, 
   body2:{
     fontSize: 16,

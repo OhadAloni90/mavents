@@ -10,3 +10,6 @@ export const dialogsShadow = [
 export const gameHeaderAndCubeShadow = [
     '00px 0px 20.5px rgba(0, 0, 0, 0.15)'
 ]
+export const loginComponenShadow = [
+    '0px 0px 50px 1px rgba(0, 0, 0, 0.1);'
+]

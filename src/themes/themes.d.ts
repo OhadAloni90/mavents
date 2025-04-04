@@ -48,6 +48,7 @@ declare module '@mui/material/styles' {
     customShadows: {
       alert: string[];
       header: string[];
+      loginComponent: string[];
       dialogs: string[];
       gameHeader: string[],
       gameCube: string[]
@@ -59,7 +60,8 @@ declare module '@mui/material/styles' {
       header?: string[];
       dialogs?: string[];
       gameHeader?: string[];
-      gameCube?: string[]
+      gameCube?: string[];
+      loginComponent?: string[];
     },
   }
 }
@@ -71,6 +73,7 @@ interface TypographyVariants {
   mavenRegularText: React.CSSProperties;
   mavenLeaderboardText: React.CSSProperties;
   mavenLeaderboardTitleText: React.CSSProperties;
+
 }
 
 declare module '@mui/material/Typography' {

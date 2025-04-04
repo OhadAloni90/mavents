@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Box, Portal } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { StyledToastBox } from './style/StyledToastBox';
 type ToastMessageProps = {
   open: boolean;
   message: string;
@@ -19,24 +20,18 @@ export default function ToastMessage({
   if (!open) return null;
   return (
     <Portal container={container}>
-      <Box
-        sx={{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 1300, // make sure it appears above other content
-          bottom:22,
-        }}
+      <StyledToastBox
         mb={3}
       >
         <Alert
           icon={severity === 'success' ? <CheckCircleIcon /> : <CancelIcon />}
           severity={severity}
+          sx={{fontSize: '15px'}}
           onClose={onClose}
         >
           {message}
         </Alert>
-      </Box>
+      </StyledToastBox>
     </Portal>
   );
 }
