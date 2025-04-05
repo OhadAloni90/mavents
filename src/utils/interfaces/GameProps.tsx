@@ -10,3 +10,7 @@ export interface LeaderboardItem {
   username: string;
   score: number;
 }
+
+export interface StyledGameHeaderBoxProps {
+  gameState: GameHeaderProps["gameState"];
+}
