@@ -23,6 +23,12 @@ const typography: TypographyVariantsOptions = {
     lineHeight: 1.5,
     fontFamily: "'Montserrat', sans-serif",
   },
+  mavenSemiBoldMediumText: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: 1.5,
+    fontFamily: "'Montserrat', sans-serif",
+  },
   mavenRegularText: {
     fontSize: 16,
     fontWeight: 400,
@@ -64,11 +70,6 @@ const typography: TypographyVariantsOptions = {
     fontWeight: 600,
     lineHeight: 1.5,
   },
-  mavenSemiBoldMediumText: {
-    fontSize: 16,
-    fontWeight: 600,
-    lineHeight: 1.5,
-    fontFamily: "'Montserrat', sans-serif",
-  },
+ 
 };
 export default typography;
