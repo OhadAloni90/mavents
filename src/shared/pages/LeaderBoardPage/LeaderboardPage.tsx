@@ -19,11 +19,10 @@ import { BASE_URL } from "../../../utils/vars";
 export default function LeaderboardPage() {
   const navigate = useNavigate();
   const [leaderboard, setLeaderboard] = useState<LeaderboardItem[]>([]);
-  const { showToast } = useGameContext();
   useEffect(() => {
     fetchLeaderboard();
   }, []);
-  const { state, onSetLoading } = useGameContext();
+  const { state, onSetLoading ,showToast } = useGameContext();
   const fetchLeaderboard = async () => {
     onSetLoading(true);
     try {
