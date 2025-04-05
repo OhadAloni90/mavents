@@ -35,6 +35,7 @@ export const StyledHighScoreContainer =  styled(Box)(({ theme }) => ({
   boxShadow: theme?.customShadows?.dialogs,
   backgroundColor: theme.palette.baseWhite.main,
   border: `1px solid ${theme.palette.basePinkSecondary.main}`,
+  marginBottom: 6,
 }));
 export const StyledGameContainer = styled(Box)(({ theme }) => ({
   height: "100%",

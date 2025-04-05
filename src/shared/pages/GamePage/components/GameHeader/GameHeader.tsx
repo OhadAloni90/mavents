@@ -12,6 +12,8 @@ const GameHeader: React.FC<GameHeaderProps> = ({ gameState, playerName, score })
         mb: 2,
         borderBottom: 1,
         borderColor: theme.palette.baseGray.main,
+        borderTopLeftRadius: theme?.gameDialog?.borderRadius,
+        borderTopRightRadius: theme?.gameDialog?.borderRadius,
         boxShadow: theme?.customShadows?.gameHeader,
         px: 2,
         py: 1,
