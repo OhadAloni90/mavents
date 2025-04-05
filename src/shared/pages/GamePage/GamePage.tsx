@@ -12,7 +12,7 @@ import theme from "../../../themes";
 import GameButton from "../../components/Button/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
-import { IndicatorBox, LoaderBox, StyledGameBox } from "./style/GameStyledBoxes";
+import { IndicatorBox, LoaderBox, StyledGameBox, StyledGameEndedBox } from "./style/GameStyledBoxes";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const randomDelay = () => Math.floor(Math.random() * 3000) + 2000;
@@ -100,8 +100,8 @@ export default function GamePage() {
         if (reaction !== null) return;
         const key = e.key.toLowerCase();
         const correct =
-          (expected === "left" && (key === "a" || key === "arrowleft")) ||
-          (expected === "right" && (key === "d" || key === "arrowright"));
+          (expected === "left" && ( key === "a" )) ||
+          (expected === "right" && ( key === "d" ));
         reaction = correct ? "success" : "wrongKey";
       };
       window.addEventListener("keydown", onKeyDown);
@@ -168,15 +168,7 @@ export default function GamePage() {
           </StyledGameBox>
         )}
         {gameState === "ENDED" && (
-          <Box
-            sx={{
-              textAlign: "center",
-              height: "100%",
-              display: "flex",
-              alignItems: "cneter",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
+          <StyledGameEndedBox
           >
             <Typography
               variant="mavensBigTitleBold"
@@ -201,7 +193,7 @@ export default function GamePage() {
                 onClick={handleRestart}
               />
             </Box>
-          </Box>
+          </StyledGameEndedBox>
         )}
       </StyledGameContainer>
     </Container>

@@ -29,3 +29,11 @@ export const LoaderBox = styled(Box)(({ theme }) => ({
     mt: 2,
     padding: 1,
   }));
+  export const StyledGameEndedBox = styled(Box)(({}) => ({
+    textAlign: "center",
+    height: "100%",
+    display: "flex",
+    alignItems: "cneter",
+    flexDirection: "column",
+    justifyContent: "center",
+  }))
