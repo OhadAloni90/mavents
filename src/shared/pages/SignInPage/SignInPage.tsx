@@ -4,8 +4,7 @@ import { TextField, Container, Typography, Box, InputAdornment, IconButton } fro
 import { UserContext } from '../../../App';
 import GameButton from '../../components/Button/Button';
 import GameContainer from '../../components/GameContainer/GameContainer';
-import SendIcon from '@mui/icons-material/Send';
-import { useUI } from '../../../providers/GameContext/GameContext';
+import { useGameContext } from '../../../providers/GameContext/GameContext';
 import ClearIcon from '@mui/icons-material/Clear';
 import { defaultContainerStyles } from '../../../themes/utils/GlobalContainerStyles';
 import { BASE_URL } from '../../../utils/vars';
@@ -17,7 +16,7 @@ export default function SignInPage() {
   const [usernameError, setUsernameError] = useState(false);
   const { setUserId } = useContext(UserContext);
   const navigate = useNavigate();
-  const { showToast, setUser } = useUI();
+  const { showToast, setUser } = useGameContext();
   const handleUserType = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(!e || !e?.target?.value) return ;
     setUsernameError(false);
@@ -45,6 +44,7 @@ export default function SignInPage() {
         navigate('/game');
       }
     } catch (error) {
+      showToast('Failed to retrieve user information. Try again', 'error');
       console.error('Failed to get userId:', error);
     } 
   };
@@ -54,15 +54,15 @@ export default function SignInPage() {
       ...defaultContainerStyles
     }}
   >
-      <Typography variant="h1" gutterBottom sx={{ marginBottom: '50px' }} >
+      <Typography variant="mavensBigTitleSemiBold" gutterBottom sx={{ color: theme?.palette?.primary?.main }} mb={6} >
         Welcome to mavens Game
       </Typography>
       <GameContainer width={430} height={120}  sx={{boxShadow: theme?.customShadows?.loginComponent}}>
-        <Typography variant="body2" gutterBottom  sx={{ textAlign: 'left'}} mb={2}>
+        <Typography variant="mavenRegularText" gutterBottom  sx={{ textAlign: 'left'}} >
           Enter player name
         </Typography>
         {/* Flex container for the input and button */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }} mt={2}>
           <TextField
             variant="outlined"
             placeholder="Input"

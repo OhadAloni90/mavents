@@ -6,7 +6,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 export default function componentsOverride(theme: Theme) {
   const { palette, shape } = theme;
   // !--- Button Overrides ---!
-    // --- Outlined Button Overrides ---
+    // !--- Outlined Button Overrides! ---
     const outlinedButtonStyles: CSSObject = {
       borderColor: palette.baseGray4.main,
       backgroundColor: palette.baseWhite.main,
@@ -59,10 +59,10 @@ export default function componentsOverride(theme: Theme) {
       backgroundColor: "#eee",
     },
     "&.Mui-focused": {
-      backgroundColor: "#fff",
+      backgroundColor: palette?.baseWhite?.main,
     },
     "&.Mui-error": {
-      backgroundColor: "#ffe5e5",
+      backgroundColor: palette?.infoRed?.main,
     },
   };
   // !--- Form Label Overrides ---!
@@ -85,7 +85,7 @@ export default function componentsOverride(theme: Theme) {
     borderRadius: shape.borderRadius,
     boxShadow: theme?.customShadows?.alert[0],
     color: palette.primary.main,
-    border: `1px solid ${theme.palette.baseGray2.main}`,
+    border: `1px solid ${palette.baseGray2.main}`,
     padding: '2px 12px'
   };
 
@@ -153,7 +153,7 @@ export default function componentsOverride(theme: Theme) {
           },
           // Overrides the close "X" (action area) so it’s NOT green
           "& .MuiAlert-action .MuiIconButton-root": {
-            color: '#7F817D',
+            color: palette.baseGray?.main,
           },
         },
         //  For error alerts in standard variant

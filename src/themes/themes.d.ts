@@ -8,7 +8,8 @@ declare module '@mui/material/styles' {
     mavenRegularText: React.CSSProperties;
     mavenLeaderboardText: React.CSSProperties;
     mavenLeaderboardTitleText: React.CSSProperties;
-
+    mavensBigTitleSemiBold: React.CSSProperties
+    mavenSemiBoldMediumText: React.CSSProperties
   }
   interface TypographyVariantsOptions {
     mavensTitle?: React.CSSProperties;
@@ -18,7 +19,8 @@ declare module '@mui/material/styles' {
     mavenRegularText?: React.CSSProperties;
     mavenLeaderboardText?: React.CSSProperties;
     mavenLeaderboardTitleText?: React.CSSProperties;
-
+    mavensBigTitleSemiBold?:React.CSSProperties;
+    mavenSemiBoldMediumText?: React.CSSProperties
   }
 
   interface Palette {
@@ -56,7 +58,10 @@ declare module '@mui/material/styles' {
       outlinebuttonShadow: string[],
       buttonShadow: string[],
       loaderShadow: string[]
-    };
+    },
+    gameDialog: {
+        borderRadius: number
+    }
   }
   interface ThemeOptions {
     customShadows?: {
@@ -71,6 +76,9 @@ declare module '@mui/material/styles' {
       buttonShadow?: string[],
       loaderShadow?: string[]
     },
+    gameDialog?: {
+      borderRadius?: number;
+    }
   }
 }
 interface TypographyVariants {
@@ -81,7 +89,8 @@ interface TypographyVariants {
   mavenRegularText: React.CSSProperties;
   mavenLeaderboardText: React.CSSProperties;
   mavenLeaderboardTitleText: React.CSSProperties;
-
+  mavensBigTitleSemiBold?:React.CSSProperties;
+  mavenSemiBoldMediumText?: React.CSSProperties
 }
 
 declare module '@mui/material/Typography' {
@@ -93,5 +102,7 @@ declare module '@mui/material/Typography' {
     mavenRegularText: true;
     mavenLeaderboardText: true;
     mavenLeaderboardTitleText: true;
+    mavensBigTitleSemiBold?:true;
+    mavenSemiBoldMediumText?: true
   }
 }

@@ -14,7 +14,7 @@ export default function Header({ text }: HeaderProps) {
           px: 2,
         }}
       >
-        <Typography variant="subtitle1">{text}</Typography>
+        <Typography variant="mavenMediumText">{text}</Typography>
       </Toolbar>
     </StyledAppBar>
   );

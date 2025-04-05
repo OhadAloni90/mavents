@@ -47,10 +47,10 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const useUI = () => {
+export const useGameContext = () => {
   const context = useContext(GameContext);
   if (!context) {
-    throw new Error("useUI must be used within a UIProvider");
+    throw new Error("useGameContext must be used within a UIProvider");
   }
   return context;
 };

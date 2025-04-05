@@ -9,7 +9,9 @@ const theme = createTheme({
   typography,
   shape: {
     borderRadius: 12, 
-    
+  },
+  gameDialog: {
+    borderRadius: 20,
   },
   customShadows: {
     alert: customAlertShadows,

@@ -17,22 +17,6 @@ const typography: TypographyVariantsOptions = {
     fontSize: 16,
     fontWeight: 400
   },
-  mavensTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  mavensSubTitle: {
-    fontFamily: "'Montserrat', sans-serif",
-    fontSize: 24,
-    fontWeight: 600,
-    lineHeight: 1.5,
-  },
-  mavensBigTitleBold: {
-    fontFamily: "'Montserrat', sans-serif",
-    fontSize: 36,
-    fontWeight: 700,
-    lineHeight: 1.5,
-  },
   mavenMediumText: {
     fontSize: 16,
     fontWeight: 500,
@@ -45,18 +29,46 @@ const typography: TypographyVariantsOptions = {
     lineHeight: 1.5,
     fontFamily: "'Montserrat', sans-serif",
   },
-  mavenLeaderboardText: {
-    fontSize: 30,
-    fontWeight: 500,
-    lineHeight: 1.5,
-    fontFamily: "'Montserrat', sans-serif",
-  },
+
   mavenLeaderboardTitleText: {
     fontSize: 22,
     fontWeight: 600,
     lineHeight: 1.5,
     fontFamily: "'Montserrat', sans-serif",
   },
-
+  mavensTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  mavensSubTitle: {
+    fontFamily: "'Montserrat', sans-serif",
+    fontSize: 24,
+    fontWeight: 600,
+    lineHeight: 1.5,
+  },
+  mavenLeaderboardText: {
+    fontSize: 30,
+    fontWeight: 500,
+    lineHeight: 1.5,
+    fontFamily: "'Montserrat', sans-serif",
+  },
+  mavensBigTitleBold: {
+    fontFamily: "'Montserrat', sans-serif",
+    fontSize: 36,
+    fontWeight: 700,
+    lineHeight: 1.5,
+  },
+  mavensBigTitleSemiBold: {
+    fontFamily: "'Montserrat', sans-serif",
+    fontSize: 36,
+    fontWeight: 600,
+    lineHeight: 1.5,
+  },
+  mavenSemiBoldMediumText: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: 1.5,
+    fontFamily: "'Montserrat', sans-serif",
+  },
 };
 export default typography;

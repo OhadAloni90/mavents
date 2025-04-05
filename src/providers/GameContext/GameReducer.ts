@@ -7,10 +7,6 @@ export const initialState: GameState = {
     message: '',
     severity: 'success',
   },
-  loading: {
-    open: false,
-    message: '',
-  },
   isLoading: false,
   playerName: ''
 };
@@ -18,14 +14,10 @@ export function GameReducer(state: GameState, action: UIAction): GameState {
   switch (action.type) {
     case 'SET_USER':
       return { ...state, userId: action.payload, playerName: action?.payload };
-    case 'CLEAR_USER':
-      return { ...state, userId: null };
     case 'SHOW_TOAST':
       return { ...state, toast: { open: true, message: action.payload.message, severity: action.payload.severity } };
     case 'HIDE_TOAST':
       return { ...state, toast: { ...state.toast, open: false } };
-    case 'HIDE_LOADING':
-      return { ...state, loading: { open: false, message: '' } };
     case 'LOADING': 
       return {...state, isLoading: action?.payload }
     default:

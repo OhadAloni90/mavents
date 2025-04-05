@@ -5,7 +5,7 @@ import theme from "../../../themes";
 export const GradientLinearProgress = styled(LinearProgress)(() => ({
   height: 11,
   borderRadius: 9999, // large radius for a pill shape
-  // Make the track transparent, then add a white border and a subtle shadow:
+  // Makes the track transparent -> Them,  add a white border and a subtle shadow:
   backgroundColor: "transparent",
   border: "3px solid #fff",
   boxShadow: theme?.customShadows?.loaderShadow,

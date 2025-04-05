@@ -3,7 +3,7 @@ import { Box, Typography, Button, Container } from "@mui/material";
 import { UserContext } from "../../../App";
 import { GameState } from "../../../utils/types/gameTypes";
 import { BASE_URL } from "../../../utils/vars";
-import { useUI } from "../../../providers/GameContext/GameContext";
+import { useGameContext } from "../../../providers/GameContext/GameContext";
 import { UserReactionMessages } from "../../../utils/enums";
 import { GradientLinearProgress } from "../../components/Loader/Loader";
 import { defaultContainerStyles, StyledGameContainer } from "../../../themes/utils/GlobalContainerStyles";
@@ -12,7 +12,6 @@ import theme from "../../../themes";
 import GameButton from "../../components/Button/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
-import { styled } from "@mui/system";
 import { IndicatorBox, LoaderBox, StyledGameBox } from "./style/GameStyledBoxes";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,7 +19,7 @@ const randomDelay = () => Math.floor(Math.random() * 3000) + 2000;
 
 export default function GamePage() {
   const { userId } = useContext(UserContext);
-  const { showToast, state, dispatch } = useUI();
+  const { showToast, state, dispatch } = useGameContext();
   const navigate = useNavigate();
   // Keep a stable reference to showToast
   const showToastRef = useRef(showToast);
@@ -105,7 +104,6 @@ export default function GamePage() {
           (expected === "right" && (key === "d" || key === "arrowright"));
         reaction = correct ? "success" : "wrongKey";
       };
-
       window.addEventListener("keydown", onKeyDown);
       setTimeout(() => {
         window.removeEventListener("keydown", onKeyDown);
@@ -113,7 +111,6 @@ export default function GamePage() {
       }, timeout);
     });
   };
-
   const saveScore = async (success: boolean) => {
     try {
       await fetch(`${BASE_URL}/api/saveScore`, {
@@ -122,6 +119,7 @@ export default function GamePage() {
         body: JSON.stringify({ userId, score: scoreRef.current, success }),
       });
     } catch (err) {
+      showToast('Failed to save score. Try again later!', 'error')
       console.error("Failed to save score:", err);
     }
   };
@@ -141,9 +139,9 @@ export default function GamePage() {
       }}
     >
       <StyledGameContainer>
-        {/* 1) In-game header */}
+        {/*  In-game header */}
         {state.playerName && <GameHeader gameState={gameState} playerName={state.playerName} score={score} />}
-        {/* 2) WAITING / SHOWING / ENDED inside the same container */}
+        {/* WAITING / SHOWING / ENDED inside the same container */}
         {gameState === "WAITING" && (
           <LoaderBox>
             <GradientLinearProgress variant="indeterminate" />

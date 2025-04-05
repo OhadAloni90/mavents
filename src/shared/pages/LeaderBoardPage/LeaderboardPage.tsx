@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Container,
   Typography,
   Table,
@@ -14,7 +13,7 @@ import theme from "../../../themes";
 import GameButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { defaultContainerStyles, StyledHighScoreContainer } from "../../../themes/utils/GlobalContainerStyles";
-import { useUI } from "../../../providers/GameContext/GameContext";
+import { useGameContext } from "../../../providers/GameContext/GameContext";
 import { GradientLinearProgress } from "../../components/Loader/Loader";
 import { StyledLeaderBoardBox } from "./style/StyledLeaderBoardBox";
 import { LeaderboardItem } from "../../../utils/interfaces/GameProps";
@@ -23,10 +22,11 @@ import { BASE_URL } from "../../../utils/vars";
 export default function LeaderboardPage() {
   const navigate = useNavigate();
   const [leaderboard, setLeaderboard] = useState<LeaderboardItem[]>([]);
+  const { showToast } = useGameContext();
   useEffect(() => {
     fetchLeaderboard();
   }, []);
-  const { state, onSetLoading } = useUI();
+  const { state, onSetLoading } = useGameContext();
   const fetchLeaderboard = async () => {
     onSetLoading(true);
     try {
@@ -37,6 +37,7 @@ export default function LeaderboardPage() {
       setLeaderboard(sorted);
     } catch (err) {
       console.error("Failed to fetch leaderboard:", err);
+      showToast('Error. Please Try again')
     } finally {
       onSetLoading(false);
     }

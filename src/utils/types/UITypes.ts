@@ -6,10 +6,6 @@ export interface GameState {
     message: string;
     severity: ToastSeverity;
   };
-  loading: {
-    open: boolean;
-    message: string;
-  };
   isLoading: boolean;
   playerName: string | null;
 }
@@ -19,4 +15,3 @@ export type UIAction =
   | { type: 'CLEAR_USER' }
   | { type: 'SHOW_TOAST'; payload: { message: string; severity: ToastSeverity } }
   | { type: 'HIDE_TOAST' } | {type: 'LOADING', payload: boolean}
-  | { type: 'HIDE_LOADING' };
