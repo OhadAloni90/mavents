@@ -23,6 +23,13 @@ export default function GamePage() {
   const navigate = useNavigate();
   // Keep a stable reference to showToast
   const showToastRef = useRef(showToast);
+ 
+  // Game states
+  const [gameState, setGameState] = useState<GameState>("WAITING");
+  const [score, setScore] = useState<number>(0);
+  const scoreRef = useRef<number>(0);
+  const [indicatorSide, setIndicatorSide] = useState<"left" | "right" | null>(null);
+  const gameStateRef = useRef(gameState);
   useEffect(() => {
     showToastRef.current = showToast;
   }, [showToast]);
@@ -45,12 +52,6 @@ export default function GamePage() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  // Game states
-  const [gameState, setGameState] = useState<GameState>("WAITING");
-  const [score, setScore] = useState<number>(0);
-  const scoreRef = useRef<number>(0);
-  const [indicatorSide, setIndicatorSide] = useState<"left" | "right" | null>(null);
-  const gameStateRef = useRef(gameState);
   useEffect(() => {
     gameStateRef.current = gameState;
   }, [gameState]);
